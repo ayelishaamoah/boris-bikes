@@ -13,11 +13,11 @@ describe DockingStation do
   # end
 
   it 'throws an error if the dock is empty' do
-    expect { subject.release_bike }.to raise_error("No bikes are currently docked")
+    expect { subject.release_bike }.to raise_error("No bikes available")
   end
 
   it 'throws an error if the dock is full' do
-    20.times { subject.dock Bike.new }
+    DockingStation::DEFAULT_CAPACITY.times { subject.dock Bike.new }
     bike = Bike.new
     expect { subject.dock(bike) }.to raise_error("The docking station is full")
   end
