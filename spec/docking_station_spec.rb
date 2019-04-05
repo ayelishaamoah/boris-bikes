@@ -19,6 +19,17 @@ describe DockingStation do
   it 'throws an error if the dock is full' do
     DockingStation::DEFAULT_CAPACITY.times { subject.dock Bike.new }
     bike = Bike.new
-    expect { subject.dock(bike) }.to raise_error("The docking station is full")
+    expect { subject.dock(bike) }.to raise_error('The docking station is full')
   end
+
+  it 'allows you to set a larger capacity' do
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+  end
+
+  it 'has a variable capacity' do
+    docking_station = DockingStation.new(50)
+    50.times { docking_station.dock Bike.new }
+    expect{ docking_station.dock Bike.new }.to raise_error 'The docking station is full'
+  end
+
 end
